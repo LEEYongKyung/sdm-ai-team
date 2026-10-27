@@ -1,0 +1,105 @@
+@import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --brand: #149765;
+  --mint: #1fd8b6;
+  --grad: linear-gradient(90deg, #149765, #1fd8b6);
+}
+
+html {
+  background: #070707;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  overflow-x: clip;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+
+body {
+  font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  overflow-x: clip;
+}
+::selection { color: #070707; background: var(--mint); }
+
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
+
+.bg-grad { background-image: var(--grad); }
+.text-grad {
+  background-image: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 글자 분할 등장 */
+.split-word { display: inline-block; white-space: nowrap; }
+.split-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.split-char { display: inline-block; will-change: transform; }
+
+/* 히어로 로고 대각선 마스크 리빌 */
+.hero-mask-reveal {
+  --reveal: 0%;
+  -webkit-mask-image: linear-gradient(to top left, #000 var(--reveal), transparent calc(var(--reveal) + 25%));
+  mask-image: linear-gradient(to top left, #000 var(--reveal), transparent calc(var(--reveal) + 25%));
+}
+
+/* 서비스 카드 호버: 중앙에서 원형으로 퍼지는 그라디언트 */
+.radial-mask-fill {
+  --reveal: -40%;
+  -webkit-mask-image: radial-gradient(circle at center, #000 var(--reveal), transparent min(calc(var(--reveal) + 18%), 100%));
+  mask-image: radial-gradient(circle at center, #000 var(--reveal), transparent min(calc(var(--reveal) + 18%), 100%));
+}
+
+/* 히어로 뒤 결과물 화면 흐름 */
+.marquee-1 { will-change: transform; animation: marquee-y 34s linear infinite; }
+.marquee-2 { will-change: transform; animation: marquee-y 48s linear infinite reverse; }
+@keyframes marquee-y { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+
+/* 링크 밑줄 애니메이션 */
+.under-line {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+  transition: background-size 0.8s var(--ease);
+}
+.under-parent:hover .under-line, .under-line:hover { background-size: 100% 1px; }
+
+/* 출렁이는 구분선 */
+.string-line { position: relative; width: 100%; height: 1px; }
+.string-line .hit { position: absolute; inset: -20px 0; z-index: 1; }
+.string-line .hit:hover { inset: -60px 0; }
+.string-line svg { position: absolute; top: -50px; left: 0; width: 100%; height: 100px; overflow: visible; pointer-events: none; }
+.string-line path { fill: none; stroke-width: 1px; }
+
+/* FAQ 아코디언 */
+.acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.6s var(--ease); }
+.acc-open .acc-body { grid-template-rows: 1fr; }
+.acc-body > div { overflow: hidden; }
+
+/* 요청서 입력 */
+.field {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.7rem 0;
+  font-size: 1rem;
+  color: #fff;
+  transition: border-color 0.3s;
+}
+.field:focus { outline: none; border-color: var(--mint); }
+.field::placeholder { color: rgba(255, 255, 255, 0.35); }
+select.field option { background: #161616; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-1, .marquee-2 { animation: none; }
+  .tall-section { height: auto !important; }
+  .tall-section .sticky-stage { position: static !important; height: auto !important; }
+}
